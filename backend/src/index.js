@@ -1,5 +1,6 @@
 import express from "express"
 import authRoutes from "./routes/auth.route.js"
+import messageRoutes from './routes/message.route.js'
 import dotenv from 'dotenv'
 import { connect } from "mongoose";
 import { connectDB } from "./lib/db.js";
@@ -13,6 +14,7 @@ app.use(express.json()) // Will allow to extract the json data out of body
 app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
+app.use("/api/message", messageRoutes)
 
 const PORT = process.env.PORT
 
