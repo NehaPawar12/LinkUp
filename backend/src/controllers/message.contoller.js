@@ -52,7 +52,6 @@ export const sendMessage = async (req, res) => {
             imageUrl = uploadResponse.secure_url;
         }
 
-        console.log("new")
         const newMessage = new Message({
             senderId,
             receiverId,
@@ -60,12 +59,10 @@ export const sendMessage = async (req, res) => {
             image: imageUrl,
         });
 
-        console.log(imageUrl)
         await newMessage.save();
 
         // Emit the message to the receiver via socket if online
         const receiverSocketId = getReceiverSocketId(receiverId);
-        console.log(receiverSocketId)
         if (receiverSocketId) {
             io.to(receiverSocketId).emit("newMessage", newMessage);
         }
